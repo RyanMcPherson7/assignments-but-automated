@@ -1,0 +1,3 @@
+{
+  "extends": ["@kth/eslint-config-kth"]
+}
