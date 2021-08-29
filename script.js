@@ -14,9 +14,9 @@ const notion = new Client({
 
 
 // obj for storing assignments
-function Assignment(name, courseID, dueDate) {
+function Assignment(name, courseName, dueDate) {
     this.name = name;
-    this.courseID = courseID;
+    this.courseName = courseName;
     this.dueDate = dueDate;
 }
 
@@ -24,6 +24,10 @@ function Assignment(name, courseID, dueDate) {
 async function getCanvasData(courseID, searchType, searchNumLimit) {
 
     let assignmentsList = [];
+
+    // fetching course name
+    const courseNameResponse = await canvas.get(`courses/${courseID}`);
+    const courseName = courseNameResponse.body.name.substring(0, 7);
 
     // fetching assignment data
     const response = await canvas.get(`courses/${courseID}/${searchType}`, {"per_page": searchNumLimit});
@@ -34,7 +38,7 @@ async function getCanvasData(courseID, searchType, searchNumLimit) {
         if (data[i].has_submitted_submissions == false) {
             const newAssignment = new Assignment(
                 data[i].name,
-                data[i].course_id,
+                courseName,
                 moment.utc(data[i].due_at).tz("America/New_York").format()
             )
             if (newAssignment.dueDate != "Invalid date")
@@ -79,7 +83,7 @@ async function postToNotion(courseId, searchType, searchNumLimit) {
                     type: "multi_select",
                     "multi_select": [
                         {
-                            "name": assignmentList[i].courseID.toString()
+                            "name": assignmentList[i].courseName
                         }
                     ]
                 }
@@ -92,7 +96,7 @@ async function postToNotion(courseId, searchType, searchNumLimit) {
 postToNotion("436423", "assignments", 100); //DSA
 postToNotion("435549", "assignments", 100); //CLA
 postToNotion("437483", "assignments", 100); //Stats
-postToNotion("441075", "assignments", 100);  //CMS
+postToNotion("441075", "assignments", 100); //CMS
 
 
 
