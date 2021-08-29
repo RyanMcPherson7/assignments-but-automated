@@ -26,6 +26,7 @@ async function getCanvasData(courseID, searchType, searchNumLimit) {
     let assignmentsList = [];
 
     // fetching course name
+    // assumes course name starts with the 7 character course id (ie. COP3503)
     const courseNameResponse = await canvas.get(`courses/${courseID}`);
     const courseName = courseNameResponse.body.name.substring(0, 7);
 
@@ -33,16 +34,20 @@ async function getCanvasData(courseID, searchType, searchNumLimit) {
     const response = await canvas.get(`courses/${courseID}/${searchType}`, {"per_page": searchNumLimit});
     const data = response.body;
 
-    // adding assignment object to list if it has not been submitted and there exists a due date
     for (let i = 0; i< data.length; i++) {
-        if (data[i].has_submitted_submissions == false) {
+
+        const dueDate = moment.utc(data[i].due_at).tz("America/New_York");
+
+        // adding assignment if has not been submitted, has a due date, and due date has not already passed
+        if (data[i].has_submitted_submissions == false 
+            && dueDate.format() != "Invalid date" 
+            && moment() < dueDate) {
             const newAssignment = new Assignment(
                 data[i].name,
                 courseName,
-                moment.utc(data[i].due_at).tz("America/New_York").format()
+                dueDate.format()
             )
-            if (newAssignment.dueDate != "Invalid date")
-                assignmentsList.push(newAssignment);
+            assignmentsList.push(newAssignment);
         }
     }
     return assignmentsList;
