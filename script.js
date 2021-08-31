@@ -111,7 +111,6 @@ async function clearDatabase() {
                 archived: true
             })
         }
-        console.log(assignmentList.length);
 }
 
 // clear database will only clear the first 100 entries
