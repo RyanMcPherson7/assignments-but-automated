@@ -38,9 +38,8 @@ async function getCanvasData(courseID, searchType, searchNumLimit) {
 
         const dueDate = moment.utc(data[i].due_at).tz("America/New_York");
 
-        // adding assignment if has not been submitted, has a due date, and due date has not already passed
-        if (data[i].has_submitted_submissions == false 
-            && dueDate.format() != "Invalid date" 
+        // adding assignment if has a due date and due date has not already passed
+        if (dueDate.format() != "Invalid date" 
             && moment() < dueDate) {
             const newAssignment = new Assignment(
                 data[i].name,
