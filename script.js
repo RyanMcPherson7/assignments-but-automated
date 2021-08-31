@@ -97,11 +97,33 @@ async function postToNotion(courseId, searchType, searchNumLimit) {
     }
 }
 
+// deletes the first 100 items in the database (capped by API)
+async function clearDatabase() {
 
-postToNotion("436423", "assignments", 100); //DSA
-postToNotion("435549", "assignments", 100); //CLA
-postToNotion("437483", "assignments", 100); //Stats
-postToNotion("441075", "assignments", 100); //CMS
+    const database = await notion.databases.query({
+        database_id: process.env.NOTION_DATABASE_ID,
+    })
+    const assignmentList = database.results;
+
+        for (let i = 0; i < assignmentList.length; i++) {
+            notion.pages.update({
+                page_id: assignmentList[i].id,
+                archived: true
+            })
+        }
+}
 
 
-
+// run script
+// 2nd clearDatabase() throws many errors due to unhandled promise rejections
+// caused by trying to access already archived pages.
+// probably try and catch these errors 
+(async () => {
+    await clearDatabase();
+    await clearDatabase();
+    await postToNotion("436423", "assignments", 100); //DSA
+    await postToNotion("435549", "assignments", 100); //CLA
+    await postToNotion("437483", "assignments", 100); //Stats
+    await postToNotion("441075", "assignments", 100); //CMS
+    await postToNotion("436113", "assignments", 100); //PHYL
+})();
