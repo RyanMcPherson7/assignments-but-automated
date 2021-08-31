@@ -111,19 +111,13 @@ async function clearDatabase() {
                 archived: true
             })
         }
+        console.log(assignmentList.length);
 }
 
-
-// run script
-// 2nd clearDatabase() throws many errors due to unhandled promise rejections
-// caused by trying to access already archived pages.
-// probably try and catch these errors 
-(async () => {
-    await clearDatabase();
-    await clearDatabase();
-    await postToNotion("436423", "assignments", 100); //DSA
-    await postToNotion("435549", "assignments", 100); //CLA
-    await postToNotion("437483", "assignments", 100); //Stats
-    await postToNotion("441075", "assignments", 100); //CMS
-    await postToNotion("436113", "assignments", 100); //PHYL
-})();
+// clear database will only clear the first 100 entries
+clearDatabase();
+postToNotion("436423", "assignments", 100); //DSA
+postToNotion("435549", "assignments", 100); //CLA
+postToNotion("437483", "assignments", 40); //Stats
+postToNotion("441075", "assignments", 100); //CMS
+postToNotion("436113", "assignments", 100); //PHYL
