@@ -114,9 +114,12 @@ async function clearDatabase() {
 }
 
 // clear database will only clear the first 100 entries
-clearDatabase();
-postToNotion("436423", "assignments", 100); //DSA
-postToNotion("435549", "assignments", 100); //CLA
-postToNotion("437483", "assignments", 40); //Stats
-postToNotion("441075", "assignments", 100); //CMS
-postToNotion("436113", "assignments", 100); //PHYL
+(async () => {
+    await clearDatabase();
+    postToNotion("436423", "assignments", 45); //DSA
+    postToNotion("435549", "assignments", 45); //CLA
+    postToNotion("437483", "assignments", 45); //Stats
+    postToNotion("441075", "assignments", 45); //CMS
+    postToNotion("436113", "assignments", 45); //PHYL
+})();
+
