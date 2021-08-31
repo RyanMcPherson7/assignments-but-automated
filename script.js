@@ -26,7 +26,7 @@ async function getCanvasData(courseID, searchType, searchNumLimit) {
     let assignmentsList = [];
 
     // fetching course name
-    // assumes course name starts with the 7 character course id (ie. COP3503)
+    // assumes course name starts with the 7 character course id (ie. COP3530)
     const courseNameResponse = await canvas.get(`courses/${courseID}`);
     const courseName = courseNameResponse.body.name.substring(0, 7);
 
@@ -113,13 +113,11 @@ async function clearDatabase() {
         }
 }
 
-// clear database will only clear the first 100 entries
+// running script
 (async () => {
     await clearDatabase();
-    postToNotion("436423", "assignments", 45); //DSA
-    postToNotion("435549", "assignments", 45); //CLA
-    postToNotion("437483", "assignments", 45); //Stats
-    postToNotion("441075", "assignments", 45); //CMS
-    postToNotion("436113", "assignments", 45); //PHYL
-})();
 
+    const courseIdList = process.env.COURSE_ID_LIST.split(",");
+    for (let i = 0; i < courseIdList.length; i++)
+        postToNotion(courseIdList[i], "assignments", 45);
+})();
