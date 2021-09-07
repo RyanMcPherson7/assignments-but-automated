@@ -96,31 +96,29 @@ async function postToNotion(courseId, searchType, searchNumLimit) {
     }
 }
 
-// deletes the first 100 items in the database (capped by API)
+// deletes the first 100 items in the database (capped by Notion API)
 async function clearDatabase() {
 
     const database = await notion.databases.query({
         database_id: process.env.NOTION_DATABASE_ID,
     })
     const assignmentList = database.results;
-
+    
+    // removing pages
     for (let i = 0; i < assignmentList.length; i++) {
 
         const pageProps = assignmentList[i].properties;
+        const pageTitle = pageProps[Object.keys(pageProps)[2]].title;
 
         // removing blank pages 
-        if (pageProps[Object.keys(pageProps)[2]].title.length == 0) {
+        if (pageTitle.length == 0) {
             notion.pages.update({
                 page_id: assignmentList[i].id,
                 archived: true
             })
-            continue;
         }
-
-        // if not blank, remove if title does not contain keyword
-        const pageTitle = pageProps[Object.keys(pageProps)[2]].title[0].plain_text;
-
-        if (!pageTitle.includes(process.env.IGNORE_CLEAR_KEYWORD)) {
+        // removing pages without keyword
+        else if (!pageTitle[0].plain_text.includes(process.env.IGNORE_CLEAR_KEYWORD)) {
             notion.pages.update({
                 page_id: assignmentList[i].id,
                 archived: true
