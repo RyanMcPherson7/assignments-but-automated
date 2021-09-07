@@ -72,7 +72,7 @@ async function postToNotion(courseId, searchType, searchNumLimit) {
                         {
                             type: "text",
                             text: {
-                                content: assignmentList[i].name
+                                content: `~ ${assignmentList[i].name}`
                             }
                         }
                     ]
@@ -118,7 +118,7 @@ async function clearDatabase() {
             })
         }
         // removing pages without keyword
-        else if (!pageTitle[0].plain_text.includes(process.env.IGNORE_CLEAR_KEYWORD)) {
+        else if (pageTitle[0].plain_text.includes("~")) {
             notion.pages.update({
                 page_id: assignmentList[i].id,
                 archived: true
