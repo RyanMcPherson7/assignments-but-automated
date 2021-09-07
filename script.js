@@ -104,12 +104,29 @@ async function clearDatabase() {
     })
     const assignmentList = database.results;
 
-        for (let i = 0; i < assignmentList.length; i++) {
+    for (let i = 0; i < assignmentList.length; i++) {
+
+        const pageProps = assignmentList[i].properties;
+
+        // removing blank pages 
+        if (pageProps[Object.keys(pageProps)[2]].title.length == 0) {
+            notion.pages.update({
+                page_id: assignmentList[i].id,
+                archived: true
+            })
+            continue;
+        }
+
+        // if not blank, remove if title does not contain keyword
+        const pageTitle = pageProps[Object.keys(pageProps)[2]].title[0].plain_text;
+
+        if (!pageTitle.includes(process.env.IGNORE_CLEAR_KEYWORD)) {
             notion.pages.update({
                 page_id: assignmentList[i].id,
                 archived: true
             })
         }
+    }
 }
 
 // running script
