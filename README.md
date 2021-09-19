@@ -13,6 +13,7 @@ An automated way of grabbing Canvas assignments and posting them to a Notion dat
    - Items whose due date have already passed will not be listed
    - All due dates will be listed in Eastern Time Zone (ET)
      - If you would like other time zones, send me an email at ryan7mcpherson@gmail.com
+3. When a new semester starts, all you have to do is update the course tags in the database and change the courses' Canvas ids
 
 ## :cyclone: Getting Started
 ### Cloning Repository
