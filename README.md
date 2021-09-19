@@ -1,7 +1,7 @@
 # Assignments, but Automated
 An automated way of grabbing Canvas assignments and posting them to a Notion database
 
-<img src="full-database.PNG" alt="full database" width="500"/>
+<img src="readme-images/full-database.PNG" alt="full database" width="500"/>
 
 ## :cyclone: Getting Started
 ### Cloning Repository
@@ -15,12 +15,27 @@ Begin by cloning the repositry. A tutorial can be found [here](https://docs.gith
    3. Give the course column a property type of "multi-select"
       1. Create a new tag for each course you're taking
          > The tag names will be the 1st 7 characters of the course's name on Canvas. If the course name on Canvas is "COP3530 - DSA Fall 2021", then the tag name will be                    "COP3530"
-4. If done correctly, your database should look something like this
+4. If done correctly, your database should look something like this:
+<img src="readme-images/empty-database.PNG" alt="empty database" width="400"/>
 
-![empty-database]()
 
 ### Configuring Environment File
-The `.env` file holds all necessary variables for the script to run properly
+1. The `.env` file holds all necessary variables for the script to run properly
+2. The next few sections will show you how to aquire each variable's value 
+3. For now, open the included `.env` file and have it off to the side 
+4. The variables name and corresponding value is as follows: 
+
+| Variable Name | Value |
+| ------------- | ----- |
+|CANVAS_ORGANIZATION_TITLE|your organization's version of Instructure|
+|CANVAS_API_KEY|your API key genearted for your Canvas account|
+|COURSE_ID_LIST|list of canvas course ID's, each seperated by a comma|
+|NOTION_API_KEY|the API key genearted for the Notion user's account|
+|NOTION_DATABASE_ID|your database's specific ID|
+|NOTION_NAME_ID|the EXACT name of your title column|
+|NOTION_DATE_ID|the EXACT name of your date column|
+|NOTION_MULTI_ID|the EXACT name of your course column|
+
 #### Canvas Variables
 #### Notion Variables
 
