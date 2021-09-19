@@ -37,6 +37,10 @@ Begin by cloning the repositry. A tutorial can be found [here](https://docs.gith
 |NOTION_MULTI_ID|the EXACT name of your course column|
 
 #### Canvas Variables
+1. The orgainzation title can be found by logging in to your Canvas account and inspecting the URL. The hightlighted portion is the value of `CANVAS_ORGANIZATION_TITLE` in the `.env` file
+<img src="readme-images/orgainzation-title-url.PNG" alt="orgainization title URL" width="300"/>
+<img src="readme-images/orgainzation-title-env.PNG" alt="orgainization title .env file" width="300"/>
+
 #### Notion Variables
 
 
