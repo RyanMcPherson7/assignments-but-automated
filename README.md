@@ -2,6 +2,14 @@
 An automated way of grabbing Canvas assignments and posting them to a Notion database
 
 ## :cyclone: Getting Started
+### Cloning Repository
+Begin by cloning the repositry. A tutorial can be found [here](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
+### Creating Notion Database
+1. Create a Notion account. You can do so [here](https://www.notion.so/)
+
+### Configuring Environment File
+#### Canvas Variables
+#### Notion Variables
 
 
 ## :rocket: Running the Script
