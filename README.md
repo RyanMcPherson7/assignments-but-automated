@@ -20,7 +20,7 @@ An automated way of grabbing Canvas assignments and posting them to a Notion dat
 Begin by cloning the repositry. A tutorial can be found [here](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
 ### Creating the Notion Database
 1. This tutorial will assume you have working knowledge of making tables in Notion. If not, a tutorial can be found [here](https://www.keepproductive.com/blog/notion-tables)
-2. Create a new Notion page and select "table" under "database"
+2. Create a new Notion page and select `table` under `database`
 3. Create a table with 3 columns, each for the name, date, and course, respectfully
    1. Give the name column a `property type` of `title`
    2. Give the date column a `property type` of `date`
