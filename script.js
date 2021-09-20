@@ -117,7 +117,7 @@ async function clearDatabase() {
                 archived: true
             })
         }
-        // removing pages without keyword
+        // removing pages with "~" key
         else if (pageTitle[0].plain_text.includes("~")) {
             notion.pages.update({
                 page_id: assignmentList[i].id,
