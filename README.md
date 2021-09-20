@@ -42,11 +42,11 @@ Begin by cloning the repositry. A tutorial can be found [here](https://docs.gith
 |CANVAS_ORGANIZATION_TITLE|your organization's version of Instructure|
 |CANVAS_API_KEY|your API key genearted for your Canvas account|
 |COURSE_ID_LIST|list of canvas course ID's, each seperated by a comma|
-|NOTION_API_KEY|the API key genearted for your Notion account|
+|NOTION_API_KEY|your API key genearted for your Notion account|
 |NOTION_DATABASE_ID|your database's specific ID|
-|NOTION_NAME_ID|the EXACT name of your title column|
-|NOTION_DATE_ID|the EXACT name of your date column|
-|NOTION_MULTI_ID|the EXACT name of your course column|
+|NOTION_NAME_ID|the exact name of your title column|
+|NOTION_DATE_ID|the exact name of your date column|
+|NOTION_MULTI_ID|the exact name of your course column|
 
 #### Canvas Variables
 1. The orgainzation title can be found by logging in to your Canvas account and inspecting the URL. The hightlighted portion is the value of `CANVAS_ORGANIZATION_TITLE` in the `.env` file
@@ -71,6 +71,7 @@ Begin by cloning the repositry. A tutorial can be found [here](https://docs.gith
 5. The name of your date column is the value of `NOTION_DATE_ID` in the `.env` file
 
 6. The name of your multi-select (course) column is the value of `NOTION_MULTI_ID` in the `.env` file
+   > Note: if you change the names of any of these columns, you must update them in the `.env` file
 
 After completion, your `.env` file should look something like this:
 ```
