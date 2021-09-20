@@ -35,7 +35,7 @@ Begin by cloning the repositry. A tutorial can be found [here](https://docs.gith
 1. The `.env` file holds all necessary variables for the script to run properly
 2. The next few sections will show you how to aquire each variable's value 
 3. For now, open the included `.env` file and have it off to the side 
-4. The variables name and corresponding value is as follows: 
+4. The variable's name and corresponding value is as follows: 
 
 | Variable Name | Value |
 | ------------- | ----- |
