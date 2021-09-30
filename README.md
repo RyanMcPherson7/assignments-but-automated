@@ -17,7 +17,10 @@ An automated way of grabbing Canvas assignments and posting them to a Notion dat
 
 ## :cyclone: Getting Started
 ### Cloning the Repository
-Begin by cloning the repositry. A tutorial can be found [here](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
+Open git bash and type the following command:
+```
+git clone git@github.com:RyanMcPherson7/assignments-but-automated.git
+```
 ### Creating the Notion Database
 1. This tutorial will assume you have working knowledge of making tables in Notion. If not, a tutorial can be found [here](https://www.keepproductive.com/blog/notion-tables)
 2. Create a new Notion page and select `table` under `database`
