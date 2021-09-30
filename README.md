@@ -92,7 +92,7 @@ NOTION_MULTI_ID = Class
 
 ## :rocket: Running the Script
 1. We will be running the script uisng Node.js. You can download it [here](https://nodejs.org/en/download/)
-2. Navigate to the folder containing the script.js file and run the command:
+2. Navigate to the folder containing `script.js` and run the command:
 ```
 node script.js
 ```
