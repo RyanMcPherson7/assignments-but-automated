@@ -1,7 +1,7 @@
 # Assignments, but Automated
 An automated way of grabbing Canvas assignments and posting them to a Notion database
 
-<img src="readme-images/full-database.PNG" alt="full database" width="500"/>
+<img src="readme-images/full-notion-database.PNG" alt="full Notion database" width="500"/>
 
 ## :crystal_ball: How it Works
 1. Every time the script is run, up to `100` assignments from Canvas will be cleared
