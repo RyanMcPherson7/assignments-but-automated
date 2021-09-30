@@ -15,7 +15,7 @@ An automated way of grabbing Canvas assignments and posting them to a Notion dat
    - Names containing "Exam" are marked with 🅾️, "Project" with 🌀, and otherwise with ✏️ 
 3. When a new semester starts, all you have to do is update the course tags in the database and change the courses' Canvas ids in the `.env`
 
-## :cyclone: Getting Started
+## :school_satchel: Getting Started
 ### Cloning the Repository
 Open git bash and type the following command:
 ```
