@@ -61,6 +61,14 @@ async function postToNotion(courseId, searchType, searchNumLimit) {
     
     // posting to notion
     for (let i = 0; i < assignmentList.length; i++) {
+
+        // assigning emoji
+        let emoji = "✏️";
+        if (assignmentList[i].name.includes("Exam"))
+            emoji = "🅾️";
+        else if (assignmentList[i].name.includes("Project"))
+            emoji = "🌀";
+
         notion.pages.create({
             parent: {
                 database_id: process.env.NOTION_DATABASE_ID,
@@ -91,6 +99,10 @@ async function postToNotion(courseId, searchType, searchNumLimit) {
                         }
                     ]
                 }
+            },
+            "icon": {
+                "type": "emoji",
+                "emoji": emoji,
             }
         });
     }
