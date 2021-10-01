@@ -29,8 +29,9 @@ git clone https://github.com/RyanMcPherson7/assignments-but-automated.git
    2. Give the date column a `property type` of `date`
    3. Give the course column a `property type` of `multi-select`
       1. Create a new tag for each course you're taking
-         > The tag names will be the 1st 7 characters of the course's name on Canvas. If the course name on Canvas is "COP3530 - DSA Fall 2021", then the tag name will be                    "COP3530"
-4. If done correctly, your database should look something like this:
+         > The tag names will be the 1st 7 characters of the course's name on Canvas. If the course name on Canvas is "COP3530 - DSA Fall 2021", then the tag name will be "COP3530"
+4. You can sort the database by most recent date by clicking on `sort` in the upper right and select the date column's name with the property `Ascending`
+5. If done correctly, your database should look something like this:
 <img src="readme-images/empty-database.PNG" alt="empty database" width="400"/>
 
 
