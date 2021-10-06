@@ -2,10 +2,14 @@
   "name": "automatic-assignment-database",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/assignmentPopulator.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/assignmentPopulator.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint \"**/*.{js,ts}\"",
+    "fix": "eslint --fix \"**/*.{js,ts}\""
   },
+  "type": "module",
   "keywords": [],
   "author": "Ryan McPherson",
   "license": "MIT",
@@ -14,5 +18,10 @@
     "@notionhq/client": "^0.3.1",
     "dotenv": "^10.0.0",
     "moment-timezone": "^0.5.33"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.24.2"
   }
 }
