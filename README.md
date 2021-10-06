@@ -25,6 +25,7 @@ git clone https://github.com/RyanMcPherson7/assignments-but-automated.git
 1. This tutorial will assume you have working knowledge of making tables in Notion. If not, a tutorial can be found [here](https://www.keepproductive.com/blog/notion-tables)
 2. Create a new Notion page and select `table` under `database`
 3. Create a table with 3 columns, each for the name, date, and course, respectfully
+   > Note: Your database cannot contain any other additional columns
    1. Give the name column a `property type` of `title`
    2. Give the date column a `property type` of `date`
    3. Give the course column a `property type` of `multi-select`
