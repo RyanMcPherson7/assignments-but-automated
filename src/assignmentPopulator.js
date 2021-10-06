@@ -60,9 +60,9 @@ async function postToNotion(courseId, searchType, searchNumLimit) {
   const assignments = await getCanvasData(courseId, searchType, searchNumLimit);
 
   // posting to notion
-  assignments.forEach((assigment) => {
+  assignments.forEach((assignment) => {
     // assigning emoji
-    const emoji = getEmoji(assigment.name);
+    const emoji = getEmoji(assignment.name);
 
     notion.pages.create({
       parent: {
@@ -75,7 +75,7 @@ async function postToNotion(courseId, searchType, searchNumLimit) {
             {
               type: 'text',
               text: {
-                content: `~ ${assigment.name}`,
+                content: `~ ${assignment.name}`,
               },
             },
           ],
@@ -83,14 +83,14 @@ async function postToNotion(courseId, searchType, searchNumLimit) {
         [process.env.NOTION_DATE_ID]: {
           type: 'date',
           date: {
-            start: assigment.dueDate,
+            start: assignment.dueDate,
           },
         },
         [process.env.NOTION_MULTI_ID]: {
           type: 'multi_select',
           multi_select: [
             {
-              name: assigment.courseName,
+              name: assignment.courseName,
             },
           ],
         },
@@ -112,7 +112,7 @@ async function clearDatabase() {
 
   assignments.forEach((assignment) => {
     const pageProps = assignment.properties;
-    const pageTitle = pageProps.Name.title;
+    const pageTitle = pageProps[Object.keys(pageProps)[2]].title;
 
     // removing blank pages
     if (pageTitle.length === 0) {
