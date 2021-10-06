@@ -89,13 +89,16 @@ NOTION_NAME_ID = Name
 NOTION_DATE_ID = Due By
 NOTION_MULTI_ID = Class
 ```
-:tada: Congratz! Everything should be setup to run properly
 
 ## :rocket: Running the Script
 1. We will be running the script uisng Node.js. You can download it [here](https://nodejs.org/en/download/)
-2. Navigate to the folder containing `script.js` and run the command:
+2. To install the Node moduals, navigate to the project folder `assignments-but-automated` and run the following command:
 ```
-node script.js
+npm install
+```
+3. To run the script, type the command:
+```
+npm start
 ```
 - This will take a few seconds depending on your internet connection and number of assignments
      > You must be connected to the internet
