@@ -93,7 +93,7 @@ NOTION_MULTI_ID = Class
 
 ## :rocket: Running the Script
 1. We will be running the script uisng Node.js. You can download it [here](https://nodejs.org/en/download/)
-2. To install the Node moduals, navigate to the project folder `assignments-but-automated` and run the following command:
+2. To install the Node moduals, navigate to the project folder `assignments-but-automated` and run the following command (you only have to do this once):
 ```
 npm install
 ```
