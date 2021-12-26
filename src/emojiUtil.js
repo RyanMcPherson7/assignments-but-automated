@@ -1,4 +1,4 @@
-const getEmoji = (assignmentName) => {
+exports.getEmoji = (assignmentName) => {
   let emoji;
 
   if (assignmentName.includes('Exam')) {
@@ -10,5 +10,3 @@ const getEmoji = (assignmentName) => {
   }
   return emoji;
 };
-
-export { getEmoji };

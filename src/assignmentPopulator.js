@@ -1,18 +1,17 @@
-import CanvasAPI from '@kth/canvas-api';
-import { Client } from '@notionhq/client';
-import moment from 'moment-timezone';
-import dotenv from 'dotenv';
+const CanvasAPI = require('@kth/canvas-api');
+const { Client } = require('@notionhq/client');
+const moment = require('moment-timezone');
+const { getEmoji } = require('./emojiUtil.js');
 
-import { getEmoji } from './emojiUtil.js';
+require('dotenv').config();
 
 const TIME_ZONE = 'America/New_York';
 const SEARCH_NUMBER_LIMIT = 45;
-
-dotenv.config();
+const COURSE_NAME_LENGTH = 7;
 
 const canvas = new CanvasAPI(
   `https://${process.env.CANVAS_ORGANIZATION_TITLE}.instructure.com/api/v1/`,
-  process.env.CANVAS_API_KEY,
+  process.env.CANVAS_API_KEY
 );
 
 const notion = new Client({
@@ -31,10 +30,16 @@ async function getCanvasData(courseID, searchType, searchNumLimit) {
   // fetching course name
   // assumes course name starts with the 7 character course id (ie. COP3530)
   const courseNameResponse = await canvas.get(`courses/${courseID}`);
-  const courseName = courseNameResponse.body.name.substring(0, 7);
+  const courseName = courseNameResponse.body.name.substring(
+    0,
+    COURSE_NAME_LENGTH
+  );
 
   // fetching assignment data
-  const assignmentsResponse = await canvas.get(`courses/${courseID}/${searchType}`, { per_page: searchNumLimit });
+  const assignmentsResponse = await canvas.get(
+    `courses/${courseID}/${searchType}`,
+    { per_page: searchNumLimit }
+  );
   const assignments = assignmentsResponse.body;
 
   // removed assignment if due date has already passed (or invalid format)
@@ -42,11 +47,9 @@ async function getCanvasData(courseID, searchType, searchNumLimit) {
   const assignmentsList = assignments.reduce((filtered, possibeAssignment) => {
     const dueDate = moment.utc(possibeAssignment.due_at).tz(TIME_ZONE);
     if (dueDate.format() !== 'Invalid date' && moment() < dueDate) {
-      filtered.push(new Assignment(
-        possibeAssignment.name,
-        courseName,
-        dueDate.format(),
-      ));
+      filtered.push(
+        new Assignment(possibeAssignment.name, courseName, dueDate.format())
+      );
     }
     return filtered;
   }, []);
@@ -135,5 +138,7 @@ async function clearDatabase() {
   await clearDatabase();
 
   const courseIds = process.env.COURSE_ID_LIST.split(',');
-  courseIds.forEach((courseId) => postToNotion(courseId, 'assignments', SEARCH_NUMBER_LIMIT));
+  courseIds.forEach((courseId) =>
+    postToNotion(courseId, 'assignments', SEARCH_NUMBER_LIMIT)
+  );
 })();
