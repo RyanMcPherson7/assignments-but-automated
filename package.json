@@ -1,10 +1,10 @@
 {
-  "name": "automatic-assignment-database",
+  "name": "assignments-but-automated",
   "version": "1.0.0",
   "description": "",
-  "main": "src/assignmentPopulator.js",
+  "main": "src/app.js",
   "scripts": {
-    "start": "node src/assignmentPopulator.js",
+    "start": "node src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint \"**/*.{js,ts}\"",
     "fix": "eslint --fix \"**/*.{js,ts}\""
