@@ -16,20 +16,23 @@ function Assignment(name, courseName, dueDate) {
 
 // fetching Canvas assignments and returning a list of filtered assignment objects
 exports.getCanvasData = async (
-  courseID,
+  courseId,
   searchType,
   searchNumLimit,
   timeZone,
   courseNameLength
 ) => {
   try {
+    if (courseId === '')
+      return []
+
     // fetching course name
-    const courseNameRes = await canvas.get(`courses/${courseID}`);
+    const courseNameRes = await canvas.get(`courses/${courseId}`);
     const courseName = courseNameRes.body.name.substring(0, courseNameLength);
 
     // fetching assignment data
     const AssignmentsRes = await canvas.get(
-      `courses/${courseID}/${searchType}`,
+      `courses/${courseId}/${searchType}`,
       {
         per_page: searchNumLimit,
       }
