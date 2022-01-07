@@ -13,6 +13,7 @@
     "lint": "eslint \"**/*.{js,ts}\"",
     "fix": "eslint --fix \"**/*.{js,ts}\""
   },
+  "type": "module",
   "keywords": [],
   "author": "Ryan McPherson",
   "license": "MIT",
