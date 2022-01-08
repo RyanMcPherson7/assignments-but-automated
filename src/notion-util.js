@@ -81,7 +81,7 @@ exports.clearDatabase = async () => {
 
     assignments.forEach((assignment) => {
       const pageProps = assignment.properties;
-      const pageTitle = pageProps[Object.keys(pageProps)[2]].title;
+      const pageTitle = pageProps[process.env.NOTION_NAME_ID].title;
 
       // removing blank pages
       if (pageTitle.length === 0) {

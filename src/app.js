@@ -1,7 +1,7 @@
 const { postToNotion, clearDatabase } = require('./notion-util');
 
-const SEARCH_TYPE = 'assignments'
-const SEARCH_NUMBER_LIMIT = 45;
+const SEARCH_TYPE = 'assignments';
+const SEARCH_NUMBER_LIMIT = 100;
 const TIME_ZONE = 'America/New_York';
 const COURSE_NAME_LENGTH = 7;
 
