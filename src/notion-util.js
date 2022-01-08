@@ -59,7 +59,7 @@ const logPrevAssignments = async () => {
 // ===================================
 // post assignments to notion database
 // ===================================
-exports.postToNotion = async (
+const postToNotion = async (
   courseId,
   searchType,
   searchNumLimit,
@@ -78,7 +78,6 @@ exports.postToNotion = async (
 
     // loading previous assignments
     const alreadyLoggedAssignments = await logPrevAssignments();
-    console.log(alreadyLoggedAssignments);
 
     // posting to notion
     assignments.forEach((assignment) => {
@@ -136,7 +135,7 @@ exports.postToNotion = async (
 };
 
 // deletes the first 100 items in the database (capped by Notion API)
-exports.clearDatabase = async () => {
+const clearDatabase = async () => {
   try {
     const databaseQuery = await notion.databases.query({
       database_id: process.env.NOTION_DATABASE_ID,
@@ -170,6 +169,52 @@ exports.clearDatabase = async () => {
 // ================================
 // archives all checked assignments
 // ================================
-exports.removeChecked = async () => {
-  // epic stuff soon to come
+const removeChecked = async () => {
+  try {
+    const databaseQuery = await notion.databases.query({
+      database_id: process.env.NOTION_DATABASE_ID,
+      filter: {
+        and: [
+          {
+            property: process.env.NOTION_CHECKBOX_ID,
+            checkbox: {
+              equals: true,
+            },
+          },
+        ],
+      },
+    });
+
+    // archiving checked assignments
+    databaseQuery.results.forEach((assignment) => {
+      notion.pages.update({
+        page_id: assignment.id,
+        archived: true,
+      });
+    });
+  } catch (err) {
+    console.error('Error from Notion Check Remover: ', err.message);
+  }
+};
+
+exports.runNotionClient = () => {
+  const SEARCH_TYPE = 'assignments';
+  const SEARCH_NUMBER_LIMIT = 100;
+  const TIME_ZONE = 'America/New_York';
+  const COURSE_NAME_LENGTH = 7;
+
+  // posting courses
+  const courseIds = process.env.COURSE_ID_LIST.split(',');
+  courseIds.forEach((courseId) =>
+    postToNotion(
+      courseId,
+      SEARCH_TYPE,
+      SEARCH_NUMBER_LIMIT,
+      TIME_ZONE,
+      COURSE_NAME_LENGTH
+    )
+  );
+
+  // removing checked
+  removeChecked();
 };
