@@ -9,6 +9,8 @@ const COURSE_NAME_LENGTH = 7;
 (async () => {
   await clearDatabase();
 
+  // test commit
+
   const courseIds = process.env.COURSE_ID_LIST.split(',');
   courseIds.forEach((courseId) =>
     postToNotion(
