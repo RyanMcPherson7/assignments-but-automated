@@ -15,26 +15,22 @@ function Assignment(name, courseName, dueDate) {
 }
 
 // fetching Canvas assignments and returning a list of filtered assignment objects
-exports.getCanvasData = async (
-  courseId,
-  searchType,
-  searchNumLimit,
-  timeZone,
-  courseNameLength
-) => {
+exports.getCanvasData = async (courseId) => {
   try {
-    if (courseId === '')
-      return []
+    if (courseId === '') return [];
 
     // fetching course name
     const courseNameRes = await canvas.get(`courses/${courseId}`);
-    const courseName = courseNameRes.body.name.substring(0, courseNameLength);
+    const courseName = courseNameRes.body.name.substring(
+      0,
+      process.env.CANVAS_COURSE_NAME_LENGTH
+    );
 
     // fetching assignment data
     const AssignmentsRes = await canvas.get(
-      `courses/${courseId}/${searchType}`,
+      `courses/${courseId}/${process.env.CANVAS_SEARCH_TYPE}`,
       {
-        per_page: searchNumLimit,
+        per_page: process.env.CANVAS_SEARCH_NUMBER_LIMIT,
       }
     );
     const assignments = AssignmentsRes.body;
@@ -43,7 +39,7 @@ exports.getCanvasData = async (
     // those whose due date has already passed
     let filteredAssignments = [];
     assignments.forEach((assignment) => {
-      const dueDate = moment.utc(assignment.due_at).tz(timeZone);
+      const dueDate = moment.utc(assignment.due_at).tz(process.env.TIME_ZONE);
       if (dueDate.format() !== 'Invalid date' && moment() < dueDate)
         filteredAssignments.push(
           new Assignment(assignment.name, courseName, dueDate.format())

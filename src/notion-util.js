@@ -59,22 +59,10 @@ const logPrevAssignments = async () => {
 // ===================================
 // post assignments to notion database
 // ===================================
-const postToNotion = async (
-  courseId,
-  searchType,
-  searchNumLimit,
-  timeZone,
-  courseNameLength
-) => {
+const postToNotion = async (courseId) => {
   try {
     // fetching data from Canvas
-    const assignments = await getCanvasData(
-      courseId,
-      searchType,
-      searchNumLimit,
-      timeZone,
-      courseNameLength
-    );
+    const assignments = await getCanvasData(courseId);
 
     // loading previous assignments
     const alreadyLoggedAssignments = await logPrevAssignments();
@@ -198,22 +186,9 @@ const removeChecked = async () => {
 };
 
 exports.runNotionClient = () => {
-  const SEARCH_TYPE = 'assignments';
-  const SEARCH_NUMBER_LIMIT = 100;
-  const TIME_ZONE = 'America/New_York';
-  const COURSE_NAME_LENGTH = 7;
-
   // posting courses
   const courseIds = process.env.COURSE_ID_LIST.split(',');
-  courseIds.forEach((courseId) =>
-    postToNotion(
-      courseId,
-      SEARCH_TYPE,
-      SEARCH_NUMBER_LIMIT,
-      TIME_ZONE,
-      COURSE_NAME_LENGTH
-    )
-  );
+  courseIds.forEach((courseId) => postToNotion(courseId));
 
   // removing checked
   removeChecked();
