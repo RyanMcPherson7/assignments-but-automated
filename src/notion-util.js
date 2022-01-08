@@ -6,6 +6,21 @@ const notion = new Client({
   auth: process.env.NOTION_API_KEY,
 });
 
+// =================================
+// adds assignments to the given set
+// =================================
+const appendToSet = (set, assignment) => {
+  let name = assignment.properties[process.env.NOTION_NAME_ID].title[0];
+  name = name ? name.plain_text : 'NO NAME';
+  let course =
+    assignment.properties[process.env.NOTION_MULTI_ID].multi_select[0];
+  course = course ? course.name : 'NO COURSE';
+
+  const identifier = `${name} (${course})`;
+
+  set.add(identifier);
+};
+
 // ===================================================
 // stores the names of each Notion assignment in a set
 // ===================================================
@@ -19,9 +34,7 @@ const logPrevAssignments = async () => {
 
     // logging data
     databaseQuery.results.forEach((assignment) => {
-      set.add(
-        assignment.properties[process.env.NOTION_NAME_ID].title[0].plain_text
-      );
+      appendToSet(set, assignment);
     });
 
     // while there is more data to log
@@ -33,9 +46,7 @@ const logPrevAssignments = async () => {
 
       // logging data
       databaseQuery.results.forEach((assignment) => {
-        set.add(
-          assignment.properties[process.env.NOTION_NAME_ID].title[0].plain_text
-        );
+        appendToSet(set, assignment);
       });
     }
   } catch (err) {
@@ -72,7 +83,12 @@ exports.postToNotion = async (
     // posting to notion
     assignments.forEach((assignment) => {
       // do not post assignment if already logged
-      if (alreadyLoggedAssignments.has(assignment.name)) return;
+      if (
+        alreadyLoggedAssignments.has(
+          `${assignment.name} (${assignment.courseName})`
+        )
+      )
+        return;
 
       // assigning emoji
       const emoji = getEmoji(assignment.name);
@@ -156,4 +172,4 @@ exports.clearDatabase = async () => {
 // ================================
 exports.removeChecked = async () => {
   // epic stuff soon to come
-}
+};
