@@ -6,7 +6,48 @@ const notion = new Client({
   auth: process.env.NOTION_API_KEY,
 });
 
+// ===================================================
+// stores the names of each Notion assignment in a set
+// ===================================================
+const logPrevAssignments = async () => {
+  let set = new Set();
+
+  try {
+    let databaseQuery = await notion.databases.query({
+      database_id: process.env.NOTION_DATABASE_ID,
+    });
+
+    // logging data
+    databaseQuery.results.forEach((assignment) => {
+      set.add(
+        assignment.properties[process.env.NOTION_NAME_ID].title[0].plain_text
+      );
+    });
+
+    // while there is more data to log
+    while (databaseQuery.has_more) {
+      databaseQuery = await notion.databases.query({
+        database_id: process.env.NOTION_DATABASE_ID,
+        start_cursor: databaseQuery.next_cursor,
+      });
+
+      // logging data
+      databaseQuery.results.forEach((assignment) => {
+        set.add(
+          assignment.properties[process.env.NOTION_NAME_ID].title[0].plain_text
+        );
+      });
+    }
+  } catch (err) {
+    console.error('Error from Notion Database Logger: ', err.message);
+  }
+
+  return set;
+};
+
+// ===================================
 // post assignments to notion database
+// ===================================
 exports.postToNotion = async (
   courseId,
   searchType,
@@ -24,8 +65,15 @@ exports.postToNotion = async (
       courseNameLength
     );
 
+    // loading previous assignments
+    const alreadyLoggedAssignments = await logPrevAssignments();
+    console.log(alreadyLoggedAssignments);
+
     // posting to notion
     assignments.forEach((assignment) => {
+      // do not post assignment if already logged
+      if (alreadyLoggedAssignments.has(assignment.name)) return;
+
       // assigning emoji
       const emoji = getEmoji(assignment.name);
 
@@ -40,7 +88,7 @@ exports.postToNotion = async (
               {
                 type: 'text',
                 text: {
-                  content: `~ ${assignment.name}`,
+                  content: assignment.name,
                 },
               },
             ],
@@ -67,7 +115,7 @@ exports.postToNotion = async (
       });
     });
   } catch (err) {
-    console.error('Error from Notion Poster:', err.message);
+    console.error('Error from Notion Poster: ', err.message);
   }
 };
 
@@ -99,6 +147,13 @@ exports.clearDatabase = async () => {
       }
     });
   } catch (err) {
-    console.log('Error from Notion Database Clearer', err.message);
+    console.error('Error from Notion Database Clearer: ', err.message);
   }
 };
+
+// ================================
+// archives all checked assignments
+// ================================
+exports.removeChecked = async () => {
+  // epic stuff soon to come
+}

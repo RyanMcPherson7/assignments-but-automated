@@ -7,9 +7,8 @@ const COURSE_NAME_LENGTH = 7;
 
 // running script
 (async () => {
-  await clearDatabase();
-
-  // test commit
+  // await clearDatabase();
+  // await clearDatabase();
 
   const courseIds = process.env.COURSE_ID_LIST.split(',');
   courseIds.forEach((courseId) =>
@@ -21,4 +20,5 @@ const COURSE_NAME_LENGTH = 7;
       COURSE_NAME_LENGTH
     )
   );
+
 })();
