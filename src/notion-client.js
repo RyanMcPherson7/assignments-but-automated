@@ -1,6 +1,6 @@
 const { Client } = require('@notionhq/client');
 const { getEmoji } = require('./emoji-util.js');
-const { getCanvasData } = require('./canvas-util');
+const { getCanvasData } = require('./canvas-client');
 
 const notion = new Client({
   auth: process.env.NOTION_API_KEY,
@@ -122,38 +122,6 @@ const postToNotion = async (courseId) => {
   }
 };
 
-// deletes the first 100 items in the database (capped by Notion API)
-const clearDatabase = async () => {
-  try {
-    const databaseQuery = await notion.databases.query({
-      database_id: process.env.NOTION_DATABASE_ID,
-    });
-    const assignments = databaseQuery.results;
-
-    assignments.forEach((assignment) => {
-      const pageProps = assignment.properties;
-      const pageTitle = pageProps[process.env.NOTION_NAME_ID].title;
-
-      // removing blank pages
-      if (pageTitle.length === 0) {
-        notion.pages.update({
-          page_id: assignment.id,
-          archived: true,
-        });
-      }
-      // removing pages with "~" key
-      else if (pageTitle[0].plain_text.includes('~')) {
-        notion.pages.update({
-          page_id: assignment.id,
-          archived: true,
-        });
-      }
-    });
-  } catch (err) {
-    console.error('Error from Notion Database Clearer: ', err.message);
-  }
-};
-
 // ================================
 // archives all checked assignments
 // ================================
@@ -185,6 +153,9 @@ const removeChecked = async () => {
   }
 };
 
+// =========================
+// run scrapping and posting
+// =========================
 exports.runNotionClient = () => {
   // posting courses
   const courseIds = process.env.COURSE_ID_LIST.split(',');

@@ -1,3 +1,3 @@
-const { runNotionClient } = require('./notion-util');
+const { runNotionClient } = require('./notion-client');
 
 runNotionClient();
