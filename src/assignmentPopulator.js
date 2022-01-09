@@ -17,7 +17,7 @@ class AssignmentPopulator {
       populatorConfig.canvasOrganizationTitle,
       populatorConfig.canvasAPIKey,
     );
-    this.notionClient = new NotionClient(populatorConfig.notionAPIKey);
+    this.notionClient = new NotionClient(populatorConfig.notionAPIKey, populatorConfig.notionDatabaseID, populatorConfig.notionNameID, populatorConfig.notionDateID, populatorConfig.notionMultiID);
   }
 
   async run() {

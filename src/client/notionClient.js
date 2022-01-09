@@ -2,10 +2,14 @@ import { Client } from '@notionhq/client';
 import { getEmoji } from '../util/emojiUtil.js';
 
 class NotionClient {
-  constructor(notionApiKey) {
+  constructor(apiKey, databaseID, nameID, dateID, multiID) {
     this.api = new Client({
-      auth: notionApiKey,
+      auth: apiKey,
     });
+    this.databaseID = databaseID;
+    this.nameID = nameID;
+    this.dateID = dateID;
+    this.multiID = multiID;
   }
 
   // post assignments to notion database
@@ -17,10 +21,10 @@ class NotionClient {
 
       this.api.pages.create({
         parent: {
-          database_id: process.env.NOTION_DATABASE_ID,
+          database_id: this.databaseID,
         },
         properties: {
-          [process.env.NOTION_NAME_ID]: {
+          [this.nameID]: {
             type: 'title',
             title: [
               {
@@ -31,13 +35,13 @@ class NotionClient {
               },
             ],
           },
-          [process.env.NOTION_DATE_ID]: {
+          [this.dateID]: {
             type: 'date',
             date: {
               start: assignment.dueDate,
             },
           },
-          [process.env.NOTION_MULTI_ID]: {
+          [this.multiID]: {
             type: 'multi_select',
             multi_select: [
               {
@@ -58,7 +62,7 @@ class NotionClient {
   async clearDatabase() {
     try {
       const databaseQuery = await this.api.databases.query({
-        database_id: process.env.NOTION_DATABASE_ID,
+        database_id: this.databaseID,
       });
       const assignments = databaseQuery.results;
 
@@ -82,7 +86,8 @@ class NotionClient {
         }
       });
     } catch (err) {
-      console.log('Error from Notion Database Clearer', err.message);
+      console.log('Error from Notion Database Clearer');
+      console.log(err)
     }
   }
 }
