@@ -1,5 +1,5 @@
 import { Client } from '@notionhq/client';
-import { getEmoji } from './emojiUtil.js';
+import { getEmoji } from '../util/emojiUtil.js';
 
 class NotionClient {
   constructor(notionApiKey) {
@@ -61,11 +61,11 @@ class NotionClient {
         database_id: process.env.NOTION_DATABASE_ID,
       });
       const assignments = databaseQuery.results;
-  
+
       assignments.forEach((assignment) => {
         const pageProps = assignment.properties;
         const pageTitle = pageProps.Name.title;
-  
+
         // removing blank pages
         if (pageTitle.length === 0) {
           this.api.pages.update({

@@ -2,13 +2,13 @@
   "name": "assignments-but-automated",
   "version": "1.0.0",
   "description": "",
-  "main": "src/app.js",
+  "main": "src/server.js",
   "engines": {
     "node": "14.17.4",
     "npm": "6.14.14"
   },
   "scripts": {
-    "start": "node src/app.js",
+    "start": "node src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint \"**/*.{js,ts}\"",
     "fix": "eslint --fix \"**/*.{js,ts}\""
@@ -20,8 +20,10 @@
   "dependencies": {
     "@kth/canvas-api": "^3.2.0",
     "@notionhq/client": "^0.3.1",
+    "config": "^3.3.6",
     "dotenv": "^10.0.0",
-    "moment-timezone": "^0.5.33"
+    "moment-timezone": "^0.5.33",
+    "node-cron": "^3.0.0"
   },
   "devDependencies": {
     "eslint": "^7.32.0",

@@ -1,0 +1,15 @@
+{
+    "server": {
+        "frequency": 2
+    },
+    "populator": {
+        "canvasOrganizationTitle": "",
+        "canvasAPIKey": "",
+        "courseIDList": "",
+        "notionAPIKey": "",
+        "notionDatabaseID": "",
+        "notionNameID": "",
+        "notionDateID": "",
+        "notionMultiID": ""
+    }
+}

@@ -1,11 +1,12 @@
-import CanvasAPI from "@kth/canvas-api";
-import moment from "moment-timezone";
-import Assignment from "../models/Assignment.js";
+import CanvasAPI from '@kth/canvas-api';
+import moment from 'moment-timezone';
+import Assignment from '../models/Assignment.js';
+
 class CanvasClient {
   constructor(organizationTitle, canvasApiKey) {
     this.api = new CanvasAPI(
       `https://${organizationTitle}.instructure.com/api/v1/`,
-      canvasApiKey
+      canvasApiKey,
     );
   }
 
@@ -14,10 +15,10 @@ class CanvasClient {
     searchType,
     searchNumLimit,
     timeZone,
-    courseNameLength
+    courseNameLength,
   ) {
     try {
-      if (courseId === "") {
+      if (courseId === '') {
         return [];
       }
 
@@ -25,13 +26,13 @@ class CanvasClient {
       const courseNameResponse = await this.api.get(`courses/${courseId}`);
       const courseName = courseNameResponse.body.name.substring(
         0,
-        courseNameLength
+        courseNameLength,
       );
 
       // fetching assignment data
       const assignmentsResponse = await this.api.get(
         `courses/${courseId}/${searchType}`,
-        { per_page: searchNumLimit }
+        { per_page: searchNumLimit },
       );
       const assignments = assignmentsResponse.body;
 
@@ -40,23 +41,23 @@ class CanvasClient {
       const assignmentsList = assignments.reduce(
         (filtered, possibeAssignment) => {
           const dueDate = moment.utc(possibeAssignment.due_at).tz(timeZone);
-          if (dueDate.format() !== "Invalid date" && moment() < dueDate) {
+          if (dueDate.format() !== 'Invalid date' && moment() < dueDate) {
             filtered.push(
               new Assignment(
                 possibeAssignment.name,
                 courseName,
-                dueDate.format()
-              )
+                dueDate.format(),
+              ),
             );
           }
           return filtered;
         },
-        []
+        [],
       );
 
       return assignmentsList;
     } catch (err) {
-      console.error("Error from Canvas Getter:", err.message);
+      console.error('Error from Canvas Getter:', err.message);
     }
   }
 }
