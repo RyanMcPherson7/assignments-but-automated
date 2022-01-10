@@ -1,10 +1,6 @@
-const { Client } = require('@notionhq/client');
 const { getEmoji } = require('./emoji-util.js');
 const { getCanvasData } = require('./canvas-client');
-
-const notion = new Client({
-  auth: process.env.NOTION_API_KEY,
-});
+require('dotenv').config();
 
 // =================================
 // adds assignments to the given set
@@ -24,11 +20,11 @@ const appendToSet = (set, assignment) => {
 // ===================================================
 // stores the names of each Notion assignment in a set
 // ===================================================
-const logPrevAssignments = async () => {
+const logPrevAssignments = async (notionClient) => {
   let set = new Set();
 
   try {
-    let databaseQuery = await notion.databases.query({
+    let databaseQuery = await notionClient.databases.query({
       database_id: process.env.NOTION_DATABASE_ID,
     });
 
@@ -39,7 +35,7 @@ const logPrevAssignments = async () => {
 
     // while there is more data to log
     while (databaseQuery.has_more) {
-      databaseQuery = await notion.databases.query({
+      databaseQuery = await notionClient.databases.query({
         database_id: process.env.NOTION_DATABASE_ID,
         start_cursor: databaseQuery.next_cursor,
       });
@@ -59,13 +55,13 @@ const logPrevAssignments = async () => {
 // ===================================
 // post assignments to notion database
 // ===================================
-const postToNotion = async (courseId) => {
+const postToNotion = async (notionClient, canvasClient, courseId) => {
   try {
     // fetching data from Canvas
-    const assignments = await getCanvasData(courseId);
+    const assignments = await getCanvasData(canvasClient, courseId);
 
     // loading previous assignments
-    const alreadyLoggedAssignments = await logPrevAssignments();
+    const alreadyLoggedAssignments = await logPrevAssignments(notionClient);
 
     // posting to notion
     assignments.forEach((assignment) => {
@@ -80,7 +76,7 @@ const postToNotion = async (courseId) => {
       // assigning emoji
       const emoji = getEmoji(assignment.name);
 
-      notion.pages.create({
+      notionClient.pages.create({
         parent: {
           database_id: process.env.NOTION_DATABASE_ID,
         },
@@ -125,9 +121,9 @@ const postToNotion = async (courseId) => {
 // ================================
 // archives all checked assignments
 // ================================
-const removeChecked = async () => {
+const removeChecked = async (notionClient) => {
   try {
-    const databaseQuery = await notion.databases.query({
+    const databaseQuery = await notionClient.databases.query({
       database_id: process.env.NOTION_DATABASE_ID,
       filter: {
         and: [
@@ -143,7 +139,7 @@ const removeChecked = async () => {
 
     // archiving checked assignments
     databaseQuery.results.forEach((assignment) => {
-      notion.pages.update({
+      notionClient.pages.update({
         page_id: assignment.id,
         archived: true,
       });
@@ -156,11 +152,13 @@ const removeChecked = async () => {
 // =========================
 // run scrapping and posting
 // =========================
-exports.runNotionClient = () => {
+exports.runClient = (notionClient, canvasClient) => {
+  // removing checked
+  removeChecked(notionClient);
+
   // posting courses
   const courseIds = process.env.COURSE_ID_LIST.split(',');
-  courseIds.forEach((courseId) => postToNotion(courseId));
-
-  // removing checked
-  removeChecked();
+  courseIds.forEach((courseId) =>
+    postToNotion(notionClient, canvasClient, courseId)
+  );
 };

@@ -1,33 +1,23 @@
-const CanvasAPI = require('@kth/canvas-api');
 const moment = require('moment-timezone');
+const { Assignment } = require('./models/Assignment');
 require('dotenv').config();
 
-const canvas = new CanvasAPI(
-  `https://${process.env.CANVAS_ORGANIZATION_TITLE}.instructure.com/api/v1/`,
-  process.env.CANVAS_API_KEY
-);
-
-// object format for storing assignments
-function Assignment(name, courseName, dueDate) {
-  this.name = name;
-  this.courseName = courseName;
-  this.dueDate = dueDate;
-}
-
+// ===============================================================================
 // fetching Canvas assignments and returning a list of filtered assignment objects
-exports.getCanvasData = async (courseId) => {
+// ===============================================================================
+exports.getCanvasData = async (canvasClient, courseId) => {
   try {
     if (courseId === '') return [];
 
     // fetching course name
-    const courseNameRes = await canvas.get(`courses/${courseId}`);
+    const courseNameRes = await canvasClient.get(`courses/${courseId}`);
     const courseName = courseNameRes.body.name.substring(
       0,
       process.env.CANVAS_COURSE_NAME_LENGTH
     );
 
     // fetching assignment data
-    const AssignmentsRes = await canvas.get(
+    const AssignmentsRes = await canvasClient.get(
       `courses/${courseId}/${process.env.CANVAS_SEARCH_TYPE}`,
       {
         per_page: process.env.CANVAS_SEARCH_NUMBER_LIMIT,
