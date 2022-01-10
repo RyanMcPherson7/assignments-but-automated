@@ -1,34 +1,34 @@
+`This readme is out of date, please wait for me to fix it :>)`
+
 # Assignments, but Automated
 An automated way of grabbing Canvas assignments and posting them to a Notion database
 
 <img src="readme-images/full-notion-database.PNG" alt="full Notion database" width="500"/>
 
 ## :crystal_ball: How it Works
-1. Every time the script is run, up to `100` assignments from Canvas will be cleared
-   - Assignments from Canvas are marked with the `~` symbol
-   - If you wish to add a new assignment that will not be cleared, do not include `~` in the title
-   - If your database contains over `100` assignments, you will have to manually remove items to avoid duplicate assingments
-2. After clearing, the first `45` assignments from each listed course are uploaded to the database
+1. When the script starts, every `checked` assignment will be removed
+2. Afterward, the first `100` assignments from each specified course are uploaded to the database
    - Items that do not have due dates will not be listed in the database
    - Items whose due date already passed will not be listed
-   - All due dates will be listed in Eastern Time Zone (ET)
+   - All due dates will be listed in the specified time zone in the `.env.` file
    - Names containing "Exam" are marked with 🅾️, "Project" with 🌀, and otherwise with ✏️ 
 3. When a new semester starts, all you have to do is update the course tags in the database and change the courses' Canvas ids in the `.env`
 
 ## :school_satchel: Getting Started
 ### Cloning the Repository
-Open git bash and type the following command:
+Clone the repository with the following git command:
 ```
 git clone https://github.com/RyanMcPherson7/assignments-but-automated.git
 ```
 ### Creating the Notion Database
 1. This tutorial will assume you have working knowledge of making tables in Notion. If not, a tutorial can be found [here](https://www.keepproductive.com/blog/notion-tables)
 2. Create a new Notion page and select `table` under `database`
-3. Create a table with 3 columns, each for the name, date, and course, respectfully
-   > Note: Your database cannot contain any other additional columns
-   1. Give the name column a `property type` of `title`
-   2. Give the date column a `property type` of `date`
-   3. Give the course column a `property type` of `multi-select`
+3. Create a table with 4 columns, each for the name, date, course, and checkbox respectfully
+   > Note: You can add any additional columns as you please
+   1. Give the name column a `property type` of `Title`
+   2. Give the date column a `property type` of `Date`
+   3. Give the course column a `property type` of `Multi-select`
+   4. Give the checkbox column a `property type` of `Checkbox`
       1. Create a new tag for each course you're taking
          > The tag names will be the 1st 7 characters of the course's name on Canvas. If the course name on Canvas is "COP3530 - DSA Fall 2021", then the tag name will be "COP3530"
 4. You can sort the database by most recent date by clicking on `sort` in the upper right and select the date column's name with the property `Ascending`
@@ -49,9 +49,14 @@ git clone https://github.com/RyanMcPherson7/assignments-but-automated.git
 |COURSE_ID_LIST|list of canvas course ID's, each seperated by a comma|
 |NOTION_API_KEY|your API key genearted for your Notion account|
 |NOTION_DATABASE_ID|your database's specific ID|
+|NOTION_CHECKBOX_ID|the exact name of your checkbox column|
 |NOTION_NAME_ID|the exact name of your title column|
 |NOTION_DATE_ID|the exact name of your date column|
 |NOTION_MULTI_ID|the exact name of your course column|
+|CANVAS_SEARCH_TYPE|the type of resource you wish to grab from Canvas|
+|CANVAS_SEARCH_NUMBER_LIMIT|the number of resrouce items to grab from Canvas per course|
+|CANVAS_COURSE_NAME_LENGTH|the length of each course tag's name in Notion|
+|TIME_ZONE|the time zone in which all Notion dates will be in|
 
 #### Canvas Variables
 1. The orgainzation title can be found by logging in to your Canvas account and inspecting the URL. The hightlighted portion is the value of `CANVAS_ORGANIZATION_TITLE` in the `.env` file
