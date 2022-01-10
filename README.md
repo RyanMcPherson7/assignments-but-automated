@@ -1,9 +1,9 @@
 # Assignments, but Automated
 An automated way of grabbing Canvas assignments and posting them to a Notion database
 
-<img src="readme-images/full-notion-database.PNG" alt="full Notion database" width="500"/>
+<img src="readme-images/header-notion-database.png" alt="full Notion database" width="500"/>
 
-## :crystal_ball: How it Works
+## 🔮 How it Works
 1. When the script starts, every `checked` assignment will be removed
 2. Afterward, the first `100` assignments from each specified course are uploaded to the database
    - Items that do not have due dates will not be listed in the database
@@ -12,7 +12,7 @@ An automated way of grabbing Canvas assignments and posting them to a Notion dat
    - Names containing "Exam" are marked with 🅾️, "Project" with 🌀, and otherwise with ✏️ 
 3. When a new semester starts, all you have to do is update the course tags in the database and change the courses' Canvas ids in the `.env`
 
-## :school_satchel: Getting Started
+## ⏰ Getting Started
 ### Cloning the Repository
 Clone the repository with the following git command:
 ```
@@ -31,7 +31,7 @@ git clone https://github.com/RyanMcPherson7/assignments-but-automated.git
          > The tag names will be the 1st 7 characters of the course's name on Canvas. If the course name on Canvas is "COP3530 - DSA Fall 2021", then the tag name will be "COP3530"
 4. You can sort the database by most recent date by clicking on `sort` in the upper right and select the date column's name with the property `Ascending`
 5. If done correctly, your database should look something like this:
-<img src="readme-images/empty-database.PNG" alt="empty database" width="400"/>
+<img src="readme-images/empty-notion-database.png" alt="empty database" width="400"/>
 
 
 ### Configuring the Environment File
@@ -97,7 +97,7 @@ NOTION_DATE_ID = Due By
 NOTION_MULTI_ID = Class
 ```
 
-## :rocket: Running the Script
+## 🚀 Running the Script
 1. We will be running the script uisng Node.js. You can download it [here](https://nodejs.org/en/download/)
 2. To install the Node moduals, navigate to the project folder `assignments-but-automated` and run the following command (you only have to do this once):
 ```
