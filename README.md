@@ -1,5 +1,3 @@
-`This readme is out of date, please wait for me to fix it :>)`
-
 # Assignments, but Automated
 An automated way of grabbing Canvas assignments and posting them to a Notion database
 
@@ -76,11 +74,13 @@ git clone https://github.com/RyanMcPherson7/assignments-but-automated.git
 3. The Notion database Id can be found by inspecting the URL of your Notion database. For this step, you will have to use Notion's web browser version. The hightlighted portion is your database's Id (the portion after "notion.so/" and before the "?"). This is the value of `NOTION_DATABASE_ID` in the `.env` file
 <img src="readme-images/database-id-url.PNG" alt="database id URL" width="600"/>
 
-4. The name of your title column is the value of `NOTION_NAME_ID` in the `.env` file
+4. The naem of your checkbox column is the value of `NOTION_CHECKBOX_ID` in the `.env` file
 
-5. The name of your date column is the value of `NOTION_DATE_ID` in the `.env` file
+5. The name of your title column is the value of `NOTION_NAME_ID` in the `.env` file
 
-6. The name of your multi-select (course) column is the value of `NOTION_MULTI_ID` in the `.env` file
+6. The name of your date column is the value of `NOTION_DATE_ID` in the `.env` file
+
+7. The name of your multi-select (course) column is the value of `NOTION_MULTI_ID` in the `.env` file
    > Note: if you change the names of any of these columns, you must update them in the `.env` file
 
 After completion, your `.env` file should look something like this:
@@ -91,6 +91,7 @@ COURSE_ID_LIST = 436423,123456,654321
 
 NOTION_API_KEY = secret_XXXXXXXXXXXXXXXXXXXXXXXXXX
 NOTION_DATABASE_ID = b0c43536536f4b28920d164bba7f699a
+NOTION_CHECKBOX_ID = Course
 NOTION_NAME_ID = Name
 NOTION_DATE_ID = Due By
 NOTION_MULTI_ID = Class
@@ -102,9 +103,8 @@ NOTION_MULTI_ID = Class
 ```
 npm install
 ```
-3. To run the script, type the command:
+3. To run the script, run the command:
 ```
 npm start
 ```
-- This will take a few seconds depending on your internet connection and number of assignments
-     > You must be connected to the internet
+> This will take a few seconds depending on your internet connection and number of assignments
