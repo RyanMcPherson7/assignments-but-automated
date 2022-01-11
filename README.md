@@ -9,7 +9,7 @@ An automated way of grabbing Canvas assignments and posting them to a Notion dat
    - Items that do not have due dates will not be listed in the database
    - Items whose due date already passed will not be listed
    - All due dates will be listed in the specified time zone in the `.env` file
-   - Names containing "Exam" are marked with 🅾️, "Project" with 🌀, and otherwise with ✏️ 
+   - Names containing "Exam", "Midterm", or "Final" are marked with 🎯, "Project" with 🌀, "Quiz" with 📗, and otherwise with ✏️ 
 3. When a new semester starts, all you have to do is update the course tags in the database and change the courses' Canvas ids in the `.env`
 
 ## ⏰ Getting Started
