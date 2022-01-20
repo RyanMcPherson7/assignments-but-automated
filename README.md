@@ -1,7 +1,7 @@
 # Assignments, but Automated
 An automated way of grabbing Canvas assignments and posting them to a Notion database
 
-<img src="readme-images/header-notion-database.png" alt="full Notion database" width="500"/>
+<img src="readme-images/header-notion-database.png" alt="full Notion database" width="800"/>
 
 ## 🔮 How it Works
 1. When the script starts, every `checked` assignment will be removed
@@ -21,12 +21,13 @@ git clone https://github.com/RyanMcPherson7/assignments-but-automated.git
 ### Creating the Notion Database
 1. This tutorial will assume you have working knowledge of making tables in Notion. If not, a tutorial can be found [here](https://www.keepproductive.com/blog/notion-tables)
 2. Create a new Notion page and select `table` under `database`
-3. Create a table with 4 columns, each for the name, date, course, and checkbox respectfully
+3. Create a table with 5 columns, each for the name, date, course, checkbox, and link respectfully
    > Note: You can add any additional columns as you please
    1. Give the name column a `property type` of `Title`
    2. Give the date column a `property type` of `Date`
    3. Give the course column a `property type` of `Multi-select`
    4. Give the checkbox column a `property type` of `Checkbox`
+   5. Give the link column a `property type` of `URL`
       1. Create a new tag for each course you're taking
          > The tag names will be the 1st 7 characters of the course's name on Canvas. If the course name on Canvas is "COP3530 - DSA Fall 2021", then the tag name will be "COP3530"
 4. You can add sorting methods to your database by clicking on `sort` in the upper right corner. I recommend sorting by `checkbox` (checked are placed at the bottom of the list) and by `due date` (closer dates are at the top). Here are my settings:
@@ -52,6 +53,7 @@ git clone https://github.com/RyanMcPherson7/assignments-but-automated.git
 |NOTION_NAME_ID|the exact name of your title column|
 |NOTION_DATE_ID|the exact name of your date column|
 |NOTION_MULTI_ID|the exact name of your course column|
+|NOTION_LINK_ID|the exact name of your link column|
 |CANVAS_SEARCH_TYPE|the type of resource you wish to grab from Canvas|
 |CANVAS_SEARCH_NUMBER_LIMIT|the number of resource items to grab from Canvas per course|
 |CANVAS_COURSE_NAME_LENGTH|the length of each course tag's name in Notion|
