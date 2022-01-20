@@ -27,13 +27,13 @@ git clone https://github.com/RyanMcPherson7/assignments-but-automated.git
    2. Give the date column a `property type` of `Date`
    3. Give the course column a `property type` of `Multi-select`
    4. Give the checkbox column a `property type` of `Checkbox`
-   5. Give the link column a `property type` of `URL`
+   5. Give the url column a `property type` of `URL`
       1. Create a new tag for each course you're taking
          > The tag names will be the 1st 7 characters of the course's name on Canvas. If the course name on Canvas is "COP3530 - DSA Fall 2021", then the tag name will be "COP3530"
 4. You can add sorting methods to your database by clicking on `sort` in the upper right corner. I recommend sorting by `checkbox` (checked are placed at the bottom of the list) and by `due date` (closer dates are at the top). Here are my settings:
-   > <img src="readme-images/notion-sort-menu.png" alt="Notion sort menu" width="400"/>
+   > <img src="readme-images/notion-sort-menu.png" alt="Notion sort menu" width="500"/>
 5. If done correctly, your database should look something like this:
-   > <img src="readme-images/empty-notion-database.png" alt="empty database" width="400"/>
+   > <img src="readme-images/base-notion-database.png" alt="empty database" width="500"/>
 
 
 ### Configuring the Environment File
@@ -53,7 +53,7 @@ git clone https://github.com/RyanMcPherson7/assignments-but-automated.git
 |NOTION_NAME_ID|the exact name of your title column|
 |NOTION_DATE_ID|the exact name of your date column|
 |NOTION_MULTI_ID|the exact name of your course column|
-|NOTION_LINK_ID|the exact name of your link column|
+|NOTION_URL_ID|the exact name of your link column|
 |CANVAS_SEARCH_TYPE|the type of resource you wish to grab from Canvas|
 |CANVAS_SEARCH_NUMBER_LIMIT|the number of resource items to grab from Canvas per course|
 |CANVAS_COURSE_NAME_LENGTH|the length of each course tag's name in Notion|
@@ -84,6 +84,8 @@ git clone https://github.com/RyanMcPherson7/assignments-but-automated.git
 6. The name of your date column is the value of `NOTION_DATE_ID` in the `.env` file
 
 7. The name of your multi-select (course) column is the value of `NOTION_MULTI_ID` in the `.env` file
+
+8. The name of your url column is the value of `NOTION_URL_ID` in the `.env` file
    > Note: if you change the names of any of these columns, you must update them in the `.env` file
 
 After completion, your `.env` file should look something like this:
@@ -98,6 +100,13 @@ NOTION_CHECKBOX_ID = Course
 NOTION_NAME_ID = Name
 NOTION_DATE_ID = Due By
 NOTION_MULTI_ID = Class
+NOTION_URL_ID = Link
+
+# additional config variables
+CANVAS_SEARCH_TYPE = assignments
+CANVAS_SEARCH_NUMBER_LIMIT = 100
+CANVAS_COURSE_NAME_LENGTH = 7
+TIME_ZONE = America/New_York
 ```
 
 ## 🚀 Running the Script
