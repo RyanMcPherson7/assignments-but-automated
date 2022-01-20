@@ -106,12 +106,23 @@ const postToNotion = async (notionClient, canvasClient, courseId) => {
               },
             ],
           },
+          [process.env.NOTION_CHECKBOX_ID]: {
+            type: 'checkbox',
+            checkbox: false,
+          },
+          [process.env.NOTION_URL_ID]: {
+            type: 'url',
+            url: assignment.link,
+          },
         },
         icon: {
           type: 'emoji',
           emoji,
         },
       });
+
+      // feedback message
+      console.log('Added:', assignment.name);
     });
   } catch (err) {
     console.error('Error from Notion Poster: ', err.message);
@@ -143,6 +154,12 @@ const removeChecked = async (notionClient) => {
         page_id: assignment.id,
         archived: true,
       });
+
+      // feedback message
+      console.log(
+        'Removed:',
+        assignment.properties[process.env.NOTION_NAME_ID].title[0].text.content
+      );
     });
   } catch (err) {
     console.error('Error from Notion Check Remover: ', err.message);

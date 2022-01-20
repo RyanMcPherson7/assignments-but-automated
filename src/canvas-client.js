@@ -32,7 +32,12 @@ exports.getCanvasData = async (canvasClient, courseId) => {
       const dueDate = moment.utc(assignment.due_at).tz(process.env.TIME_ZONE);
       if (dueDate.format() !== 'Invalid date' && moment() < dueDate)
         filteredAssignments.push(
-          new Assignment(assignment.name, courseName, dueDate.format())
+          new Assignment(
+            assignment.name,
+            courseName,
+            dueDate.format(),
+            assignment.html_url
+          )
         );
     });
 
