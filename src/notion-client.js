@@ -122,7 +122,7 @@ const postToNotion = async (notionClient, canvasClient, courseId) => {
       });
 
       // feedback message
-      console.log('Added:', assignment.name);
+      console.log('Added:', `${assignment.name} (${assignment.courseName})`);
     });
   } catch (err) {
     console.error('Error from Notion Poster: ', err.message);
@@ -156,9 +156,15 @@ const removeChecked = async (notionClient) => {
       });
 
       // feedback message
+      const nameProp =
+        assignment.properties[process.env.NOTION_NAME_ID].title[0];
+      const multiProp =
+        assignment.properties[process.env.NOTION_MULTI_ID].multi_select[0];
       console.log(
         'Removed:',
-        assignment.properties[process.env.NOTION_NAME_ID].title[0].text.content
+        `${nameProp ? nameProp.text.content : 'NO NAME'} (${
+          multiProp ? multiProp.name : 'NO COURSE'
+        })`
       );
     });
   } catch (err) {
