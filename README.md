@@ -111,7 +111,7 @@ TIME_ZONE = America/New_York
 
 ## 🚀 Running the Script
 1. We will be running the script using Node.js. You can download it [here](https://nodejs.org/en/download/)
-2. To install the Node modals, navigate to the project folder `assignments-but-automated` and run the following command (you only have to do this once):
+2. To install the Node modules, navigate to the project folder `assignments-but-automated` and run the following command (you only have to do this once):
 ```
 npm install
 ```
